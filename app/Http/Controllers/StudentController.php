@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 use Alert;
 
 use App\Student;
@@ -20,6 +21,7 @@ class StudentController extends Controller
             'students' => Student::paginate(5),
             'total_data' => Student::all()
          ];
+
         return view('welcome', $data);
     }
 
@@ -49,9 +51,19 @@ class StudentController extends Controller
             'number_phone' => $request->nomor_hp
          ]);
          
-         alert()->success('Data Berhasil di Tambahkan', 'Berhasil!')->persistent('OK');
-    
-         return redirect()->back();
+         
+         if($student){
+			
+			alert()->success('Data Berhasil di Tambahkan', 'Berhasil!')->persistent('OK');
+			return redirect()->back();
+
+		}else{
+				
+			alert()->error('Data Gagal di Tambahkan', 'Gagal!')->persistent('OK');
+			return redirect()->back();
+					
+		}
+		
    }
 
     /**
@@ -85,7 +97,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Student::find($id)->update([
+        $update = Student::find($id)->update([
             'nis' => $request->nis,
             'student_name' => $request->nama_siswa,
             'class' => $request->kelas,
@@ -93,9 +105,18 @@ class StudentController extends Controller
             'number_phone' => $request->nomor_hp
         ]);
       
-         alert()->success('Data Berhasil di Ubah', 'Berhasil!')->persistent('OK');
-         
-         return redirect()->back();
+         if($update){
+			
+			alert()->success('Data Berhasil di Tambahkan', 'Berhasil!')->persistent('OK');
+			return redirect()->back();
+
+		}else{
+				
+			alert()->error('Data Gagal di Tambahkan', 'Gagal!')->persistent('OK');
+			return redirect()->back();
+					
+		}
+	
     }
 
     /**
@@ -106,10 +127,21 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        Student::find($id)->delete();
+        $destroy = Student::find($id)->delete();
       
-        alert()->success('Data Berhasil di Hapus', 'Berhasil!')->persistent('OK');
-    
-         return redirect()->back();
+       if($destroy){
+			
+			alert()->success('Data Berhasil di Tambahkan', 'Berhasil!')->persistent('OK');
+			return redirect()->back();
+
+		}else{
+				
+			alert()->error('Data Gagal di Tambahkan', 'Gagal!')->persistent('OK');
+			return redirect()->back();
+					
+		}
+	
    }
+
+
 }

@@ -42,7 +42,7 @@
                         </div>
                         <div class="modal-body">
                            
-                           <form method="post" action="/students">
+                           <form method="post" action="{{ url('students') }}">
                            
                               @csrf
                               
@@ -147,7 +147,7 @@
                         </div>
                         <div class="modal-body">
                            
-                           <form method="post" action="students/{{ $student->id }}">
+                           <form method="post" action="{{ url('students', $student->id) }}">
                            
                               @csrf
                               @method('put')
@@ -209,7 +209,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">
                            <i class="fa fa-times"></i> Tutup
                         </button>
-                        <form method="post" action="students/{{ $student->id }}">
+                        <form method="post" action="{{ url('students', $student->id) }}">
                         
                            @csrf
                            @method('delete')
